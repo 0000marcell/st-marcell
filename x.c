@@ -55,9 +55,9 @@ enum resource_type {
 };
 
 typedef struct {
-	char *name;
-	enum resource_type type;
-	void *dst;
+  char *name;
+  enum resource_type type;
+  void *dst;
 } ResourcePref;
 
 /* X modifiers */
@@ -870,8 +870,8 @@ xclear(int x1, int y1, int x2, int y2)
 void
 xhints(void)
 {
-	XClassHint class = {opt_name ? opt_name : "st",
-	                    opt_class ? opt_class : "St"};
+  XClassHint class = {opt_name ? opt_name : "st",
+                      opt_class ? opt_class : "St"};
 	XWMHints wm = {.flags = InputHint, .input = 1};
 	XSizeHints *sizeh;
 
@@ -1145,21 +1145,21 @@ xinit(int cols, int rows)
 	Window parent;
 	pid_t thispid = getpid();
 	XColor xmousefg, xmousebg;
-	XWindowAttributes attr;
-	XVisualInfo vis;
+  XWindowAttributes attr;
+  XVisualInfo vis;
 
 	xw.scr = XDefaultScreen(xw.dpy);
 
-	if (!(opt_embed && (parent = strtol(opt_embed, NULL, 0)))) {
-		parent = XRootWindow(xw.dpy, xw.scr);
-		xw.depth = 32;
-	} else {
-		XGetWindowAttributes(xw.dpy, parent, &attr);
-		xw.depth = attr.depth;
-	}
+  if (!(opt_embed && (parent = strtol(opt_embed, NULL, 0)))) {
+  parent = XRootWindow(xw.dpy, xw.scr);
+  xw.depth = 32;
+  } else {
+    XGetWindowAttributes(xw.dpy, parent, &attr);
+    xw.depth = attr.depth;
+  }
 
-	XMatchVisualInfo(xw.dpy, xw.scr, xw.depth, TrueColor, &vis);
-	xw.vis = vis.visual;
+  XMatchVisualInfo(xw.dpy, xw.scr, xw.depth, TrueColor, &vis);
+  xw.vis = vis.visual;
 
 	/* font */
 	if (!FcInit())
@@ -2149,11 +2149,10 @@ run:
 
 	setlocale(LC_CTYPE, "");
 	XSetLocaleModifiers("");
+  if(!(xw.dpy = XOpenDisplay(NULL)))
+    die("Can't open display\n");
 
-	if(!(xw.dpy = XOpenDisplay(NULL)))
-		die("Can't open display\n");
-
-	config_init();
+  config_init();
 	cols = MAX(cols, 1);
 	rows = MAX(rows, 1);
 	tnew(cols, rows);
